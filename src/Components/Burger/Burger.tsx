@@ -1,16 +1,18 @@
-import './Burger.css';
-import meatImage from '../assets/meat.png';
-import cheeseImage from '../assets/cheese.png';
-import saladImage from '../assets/salad-iceberg.png';
-import baconImage from '../assets/bacon.png';
 import {useState} from 'react';
+
+import './Burger.css';
+import Ingredient from '../Ingredient/Ingredient';
+
+import meatImage from '../../assets/meat.svg';
+import cheeseImage from '../../assets/cheese.svg';
+import saladImage from '../../assets/salad-iceberg.svg';
+import baconImage from '../../assets/bacon.svg';
 
 interface Ingredient {
   name: string;
   price: number;
   image: string;
 }
-
 
 const Burger = () => {
   const INGREDIENTS: Ingredient[] = [
@@ -20,16 +22,45 @@ const Burger = () => {
     {name: 'Bacon', price: 60, image: baconImage},
   ];
 
-  const [ingredients, setIngredients] = useState([
-    {name: 'Meat', count: 0},
-    {name: 'Cheese', count: 0},
-    {name: 'Salad', count: 0},
-    {name: 'Bacon', count: 0},
-  ]);
+  const [ingredients, setIngredients] = useState(
+    INGREDIENTS.map((ingredient) => ({...ingredient, count: 0}))
+  );
+
+  const addToOrder = (name) => {
+    setIngredients((prevIngredients) =>
+      prevIngredients.map((ingredient) =>
+        ingredient.name === name ? {...ingredient, count: ingredient.count + 1} : ingredient
+      )
+    );
+  };
+
+  const itemsList = (
+    ingredients.map((ingredient, index) => (
+      <Ingredient
+        key={index}
+        name={ingredient.name}
+        image={ingredient.image}
+        count={ingredient.count}
+        addToOrder={() => addToOrder(ingredient.name)}
+      />
+    ))
+  );
+
 
   return (
     <div className="Burger">
+      <div className="ingredients">
+        {itemsList}
+      </div>
+      <div className="burger-preview">
+        <div className="BreadTop">
+          <div className="Seeds1"/>
+          <div className="Seeds2"/>
+        </div>
 
+        <div className="BreadBottom"/>
+        <div className="total-price">Price: som</div>
+      </div>
     </div>
   );
 };
