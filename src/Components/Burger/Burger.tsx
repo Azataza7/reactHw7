@@ -7,6 +7,8 @@ import meatImage from '../../assets/meat.svg';
 import cheeseImage from '../../assets/cheese.svg';
 import saladImage from '../../assets/salad-iceberg.svg';
 import baconImage from '../../assets/bacon.svg';
+import TotalPrice from '../TotalPrice/TotalPrice';
+import PreviewIngredient from '../Ingredient/PreviewIngredient';
 
 interface Ingredient {
   name: string;
@@ -43,6 +45,14 @@ const Burger = () => {
   const addToOrder = (name: string) => actionAbstractOrder(name, 1);
   const removeOrder = (name: string) => actionAbstractOrder(name, -1);
 
+  const getTotalPrice = () => {
+    const startingPrice = 30;
+    return (
+      ingredients.reduce((total, ingredient) => total + ingredient.price * ingredient.count, 0)
+      + startingPrice
+    );
+  };
+
   const itemsList = (
     ingredients.map((ingredient, index) => (
       <Ingredient
@@ -56,6 +66,8 @@ const Burger = () => {
     ))
   );
 
+
+
   return (
     <div className="Burger">
       <div className="ingredients">
@@ -66,9 +78,9 @@ const Burger = () => {
           <div className="Seeds1"/>
           <div className="Seeds2"/>
         </div>
-
+        {previewItemsList}
         <div className="BreadBottom"/>
-        <div className="total-price">Price: som</div>
+        <TotalPrice getTotal={getTotalPrice()}/>
       </div>
     </div>
   );
