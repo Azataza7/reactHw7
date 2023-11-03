@@ -6,7 +6,7 @@ interface Props {
 
 const TotalPrice:React.FC<Props> = ({getTotal}) => {
   return (
-    <span className="totalPrice">Cost: {getTotal}</span>
+    <span className="totalPrice">Cost: {getTotal} som</span>
   );
 };
 

@@ -30,7 +30,7 @@ const Burger = () => {
 
   const [userOrder, setUserOrder] = useState([]);
 
-  const actionAbstractOrder = (name, number) => {
+  const deleteAddOrderFunction = (name, number) => {
     setUserOrder((prevUserOrder) => [...prevUserOrder, name]);
     setIngredients((prevStateIngredients) =>
       prevStateIngredients.map((ingredient) => {
@@ -45,8 +45,16 @@ const Burger = () => {
     );
   };
 
-  const addToOrder = (name: string) => actionAbstractOrder(name, 1);
-  const removeOrder = (name: string) => actionAbstractOrder(name, -1);
+  const addToOrder = (name: string) => deleteAddOrderFunction(name, 1);
+  const removeOrder = (name: string) => {
+    deleteAddOrderFunction(name, -1);
+    const ingredientIndex = userOrder.findIndex((item) => item === name);
+    if (ingredientIndex !== -1) {
+      const newUserOrder = [...userOrder];
+      newUserOrder.splice(ingredientIndex, 1);
+      setUserOrder(newUserOrder);
+    }
+  };
 
   const getTotalPrice = () => {
     const startingPrice = 30;
@@ -61,6 +69,7 @@ const Burger = () => {
       <Ingredient
         key={index}
         name={ingredient.name}
+        cost={ingredient.price}
         image={ingredient.image}
         count={ingredient.count}
         addToOrder={() => addToOrder(ingredient.name)}

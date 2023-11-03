@@ -1,6 +1,6 @@
 import * as React from 'react';
-import RemoveButton from '../../Buttons/RemoveButton';
-import AddButton from '../../Buttons/AddButton';
+import RemoveButton from '../Buttons/RemoveButton';
+import AddButton from '../Buttons/AddButton';
 
 interface Props {
   name: string;
@@ -10,11 +10,12 @@ interface Props {
   removeFromOrder: () => void;
 }
 
-const Ingredient: React.FC<Props> = ({name, image, count, addToOrder, removeFromOrder}) => {
+const Ingredient: React.FC<Props> = ({name, image, count, cost, addToOrder, removeFromOrder}) => {
   return (
     <div className="ingredient-item">
+      <span className="cost">{cost + 'som'} </span>
       <img src={image} alt={`imageOf` + name}/>
-      <span> {name}</span>
+      <span>{name}</span>
       <div className="panel">
         <AddButton addToOrder={addToOrder}/>
         <span>{count}</span>
