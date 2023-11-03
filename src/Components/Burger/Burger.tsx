@@ -28,9 +28,12 @@ const Burger = () => {
     INGREDIENTS.map((ingredient) => ({...ingredient, count: 0}))
   );
 
+  const [userOrder, setUserOrder] = useState([]);
+
   const actionAbstractOrder = (name, number) => {
-    setIngredients((prevIngredients) =>
-      prevIngredients.map((ingredient) => {
+    setUserOrder((prevUserOrder) => [...prevUserOrder, name]);
+    setIngredients((prevStateIngredients) =>
+      prevStateIngredients.map((ingredient) => {
         if (ingredient.name === name) {
           const newCount = ingredient.count + number;
           if (newCount >= 0) {
@@ -66,7 +69,11 @@ const Burger = () => {
     ))
   );
 
-
+  const OrderList = (
+    userOrder.map((order, index) => (
+      <PreviewIngredient key={index} itemClassName={order}/>
+    ))
+  );
 
   return (
     <div className="Burger">
@@ -78,7 +85,7 @@ const Burger = () => {
           <div className="Seeds1"/>
           <div className="Seeds2"/>
         </div>
-        {previewItemsList}
+        {OrderList}
         <div className="BreadBottom"/>
         <TotalPrice getTotal={getTotalPrice()}/>
       </div>
