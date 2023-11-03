@@ -26,13 +26,22 @@ const Burger = () => {
     INGREDIENTS.map((ingredient) => ({...ingredient, count: 0}))
   );
 
-  const addToOrder = (name) => {
+  const actionAbstractOrder = (name, number) => {
     setIngredients((prevIngredients) =>
-      prevIngredients.map((ingredient) =>
-        ingredient.name === name ? {...ingredient, count: ingredient.count + 1} : ingredient
-      )
+      prevIngredients.map((ingredient) => {
+        if (ingredient.name === name) {
+          const newCount = ingredient.count + number;
+          if (newCount >= 0) {
+            return {...ingredient, count: newCount};
+          }
+        }
+        return ingredient;
+      })
     );
   };
+
+  const addToOrder = (name: string) => actionAbstractOrder(name, 1);
+  const removeOrder = (name: string) => actionAbstractOrder(name, -1);
 
   const itemsList = (
     ingredients.map((ingredient, index) => (
@@ -42,10 +51,10 @@ const Burger = () => {
         image={ingredient.image}
         count={ingredient.count}
         addToOrder={() => addToOrder(ingredient.name)}
+        removeFromOrder={() => removeOrder(ingredient.name)}
       />
     ))
   );
-
 
   return (
     <div className="Burger">

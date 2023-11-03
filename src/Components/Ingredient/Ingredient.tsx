@@ -1,20 +1,25 @@
 import * as React from 'react';
+import RemoveButton from '../../Buttons/RemoveButton';
+import AddButton from '../../Buttons/AddButton';
 
 interface Props {
   name: string;
   image: string;
   count: number;
-  deleteBtn: () => void;
   addToOrder: () => void;
+  removeFromOrder: () => void;
 }
 
-const Ingredient: React.FC<Props> = ({name, image, count, deleteBtn, addToOrder}) => {
+const Ingredient: React.FC<Props> = ({name, image, count, addToOrder, removeFromOrder}) => {
   return (
-    <div className="ingredient-item" onClick={addToOrder}>
+    <div className="ingredient-item">
       <img src={image} alt={`imageOf` + name}/>
       <span> {name}</span>
-      <span>{count}</span>
-      <button className="delete-btn" onClick={deleteBtn}/>
+      <div className="panel">
+        <AddButton addToOrder={addToOrder}/>
+        <span>{count}</span>
+        <RemoveButton removeFromOrder={removeFromOrder}/>
+      </div>
     </div>
   );
 };

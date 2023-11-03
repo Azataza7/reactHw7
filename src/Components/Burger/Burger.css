@@ -133,6 +133,7 @@
   height: 220px;
   padding: 10px 0 0 0;
 
+  margin-bottom: 10px;
   position: relative;
 }
 
@@ -154,4 +155,23 @@
 
 .burger-preview {
   flex-basis: 50%;
+}
+
+.addBtn {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background: url("../../assets/add.svg") center no-repeat;
+}
+
+.removeBtn {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background: url("../../assets/minus.svg") center no-repeat;
+}
+
+.panel {
+  display: flex;
+  justify-content: center;
 }
